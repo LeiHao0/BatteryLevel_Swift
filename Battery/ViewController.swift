@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         case UIDeviceBatteryState.Charging:
             batteryImageView.image = UIImage(named: "Energy-2")
             timer?.invalidate()
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateBatteryImageViewWithCharging", userInfo: nil, repeats: true)
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "updateBatteryImageView", userInfo: nil, repeats: true)
 
             println("Charging")
             
@@ -44,6 +44,7 @@ class ViewController: UIViewController {
             
             println("Full")
         case UIDeviceBatteryState.Unplugged:
+            self.updateBatteryImageView()
             println("Unplugged")
             
         case UIDeviceBatteryState.Unknown:
@@ -60,7 +61,7 @@ class ViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
 
-    func updateBatteryImageViewWithCharging() {
+    func updateBatteryImageView() {
         self.batteryStateLabel.text = "BatteryLevel : \(device.batteryLevel * 100)%"
         var sysBatteryLevel =  Int(device.batteryLevel*8.0)
         
